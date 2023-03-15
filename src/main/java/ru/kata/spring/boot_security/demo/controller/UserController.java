@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
 public class UserController {
 
     private final UserService userService;
@@ -20,36 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public String findAll(Model model){
-        List<User> users = userService.getListUsers();
-        model.addAttribute("users", users);
-        return "all-users";
-    }
-    @GetMapping("/createNewUser")
-    public String createUserForm(Model model) {
-        model.addAttribute("user", new User());
-        return "createUser";
-    }
-    @PostMapping("/") //сохранение
-    public String save(@ModelAttribute("user") User theuser){
-        userService.saveUser(theuser);
-        return "redirect:/users";
-    }
-    @GetMapping("/editUser/{id}")//редактирование
-    public String updateUser(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userService.getById(id));
-        return "updateUser";
-    }
-    @PostMapping("/updateUser")
-    public String update(@ModelAttribute("update") User user) {
-        userService.edit(user);
-        return "redirect:/users";
+    @GetMapping("/user")
+    public String findAll(Model model, Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("roles", user.getRoles());
+        return "/USER/user";
     }
 
-    @DeleteMapping("/deleteUser/{id}") //удаление
-    public String deleteById(@PathVariable("id") Long id) {
-        userService.delete(id);
-        return "redirect:/users";
-    }
 }
