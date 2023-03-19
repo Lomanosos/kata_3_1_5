@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Sign out."/>
+</form>
+
+<form th:action="@{/admin}" th:object="${user}" th:method="POST">
+
+    <label for="username">Username</label>
+    <br/>
+    <input type="text" th:field="*{username}" id="username"/>
+
+    <br/>
+    <label for="Password">Password</label>
+    <br/>
+    <input type="text"  th:field="*{password}" id = "Password"/>
+
+    <br/>
+    <label for="Age">Age</label>
+    <br/>
+    <input type="text"  th:field="*{password}" id = "Age"/>
+
+    <br/>
+    <label>Roles:
+        <input type="checkbox" name="roles"
+               th:each="role : ${allRoles}"
+               th:text="${role.getRole()}"
+               th:value="${role.id}"
+               th:field="*{roles}"
+        />
+    </label>
+
+    <br/>
+    <input type="submit" value="Add user">
+</form>
+</body>
+</html>

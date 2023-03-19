@@ -5,19 +5,15 @@
     <title>User page</title>
 </head>
 <body>
-<div>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>Roles</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td th:text="${user.getUsername()}"/>
-  </tr>
-  </tbody>
-</div>
+<h2>
+    <p th:text="${'Hello, ' + user.getUsername() + '.'}"></p>
+    <p th:text="${'Your age: ' + user.getAge() + '.'}"></p>
+    <p th:text="${'Your password: ' + user.getPassword() + '.'}"></p>
+    <p th:text="${'Your roles:' + user.getRolesString()}"></p>
+</h2>
+
+<form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Sign out."/>
+</form>
 </body>
 </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/logout}">
+  <input type="submit" value="Sign out."/>
+</form>
+<h2>Users</h2>
+<br>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Role</th>
+    <th>Operations</th>
+  </tr>
+  <c:forEach items="${users}" var="user">
+    <tr th:each="user : ${users}">
+      <td th:text="${user.getUsername()}"></td>
+      <td th:text="${user.getLastName()}"></td>
+      <td th:text="${user.getAge()}"></td>
+      <td>
+        <input type="button" value="Edit" th:data-url="@{/editUser/{id}(id=${user.id})}"
+               onclick="window.location.href=this.getAttribute('data-url');"/>
+        <form th:action="@{/deleteUser/{id}(id=${user.id})}" th:method="DELETE">
+          <button type='submit' name='your_name' value='your_value' class='btn-link'>Delete</button>
+        </form>
+      </td>
+    </tr>
+  </c:forEach>
+</table>
+<br>
+<input type="button" value="Add" onclick="window.location.href='createNewUser'"/>
+</body>
+</html>

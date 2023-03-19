@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -22,8 +23,9 @@ public class User implements UserDetails {
     private String username ;
     //@Column(name = "password")
     private String password;
+    private Integer age;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -34,9 +36,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, Integer age) {
         this.username = username;
         this.password = password;
+        this.age = age;
     }
 
     @Override
@@ -66,12 +69,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return getUsername();
+        return this.username;
     }
 
 
@@ -106,4 +109,17 @@ public class User implements UserDetails {
         roles.add(role);
     }
 
+    public String getRolesString() {
+        String rolesset = roles.stream().map(n ->n.getRole()).collect(Collectors.joining("," +
+                ""));
+        return rolesset.substring(5).toLowerCase();
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }

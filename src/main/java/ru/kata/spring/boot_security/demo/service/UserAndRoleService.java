@@ -20,25 +20,29 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserAndRoleService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
     @Autowired
     public UserAndRoleService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-
     }
 
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
+    @Transactional
     public void saveUser(User user) {
         userRepository.save(user);
     }
+    @Transactional
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
+    @Transactional
     public void edit(User user) {
         userRepository.save(user);
     }
@@ -52,7 +56,6 @@ public class UserAndRoleService implements UserDetailsService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username);

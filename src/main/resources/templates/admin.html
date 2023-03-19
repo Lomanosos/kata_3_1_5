@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+</head>
+<body>
+<div>
+    <table border="3">
+        <thead>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Age</th>
+        <th>Password</th>
+        <th>Roles</th>
+        <th>Operations</th>
+        </thead>
+        <c:forEach items="${users}" var="user">
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.getRolesString()}"></td>
+                <td>
+                    <input type="button" value="Edit" th:data-url="@{/editUser/{id}(id=${user.id})}"
+                           onclick="window.location.href=this.getAttribute('data-url');"/>
+                    <form th:action="@{/deleteUser/{id}(id=${user.id})}" th:method="DELETE">
+                        <button type='submit' name='your_name' value='your_value' class='btn-link'>Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+<input type="button" value="Add" onclick="window.location.href='createNewUser'"/>
+<form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Sign out"/>
+</form>
+</body>
+</html>
