@@ -8,30 +8,39 @@
 <form th:method="POST" th:action="@{/logout}">
   <input type="submit" value="Sign out."/>
 </form>
+
 <h2>Users</h2>
+
 <br>
-<table>
-  <tr>
-    <th>Username</th>
-    <th>Role</th>
-    <th>Operations</th>
-  </tr>
-  <c:forEach items="${users}" var="user">
-    <tr th:each="user : ${users}">
-      <td th:text="${user.getUsername()}"></td>
-      <td th:text="${user.getLastName()}"></td>
-      <td th:text="${user.getAge()}"></td>
-      <td>
-        <input type="button" value="Edit" th:data-url="@{/editUser/{id}(id=${user.id})}"
-               onclick="window.location.href=this.getAttribute('data-url');"/>
-        <form th:action="@{/deleteUser/{id}(id=${user.id})}" th:method="DELETE">
-          <button type='submit' name='your_name' value='your_value' class='btn-link'>Delete</button>
-        </form>
-      </td>
-    </tr>
-  </c:forEach>
-</table>
-<br>
-<input type="button" value="Add" onclick="window.location.href='createNewUser'"/>
+
+<form th:action="@{/updateUser}" th:object="${user}" th:method="POST">
+  <input type="hidden" th:field="*{id}"/>
+  <label for="username">Username</label>
+  <br/>
+  <input type="text" th:field="*{username}" id="username"/>
+
+  <br/>
+  <label for="Password">Password</label>
+  <br/>
+  <input type="text"  th:field="*{password}" id = "Password"/>
+
+  <br/>
+  <label for="Age">Age</label>
+  <br/>
+  <input type="text"  th:field="*{age}" id = "Age"/>
+
+  <br/>
+  <label>Roles:
+    <input type="checkbox" name="roles"
+           th:each="role : ${allRoles}"
+           th:text="${role.getRole()}"
+           th:value="${role.id}"
+           th:field="*{roles}"
+    />
+  </label>
+
+  <br/>
+  <button type="submit" value="Ok">Submit</button>
+</form>
 </body>
 </html>

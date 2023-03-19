@@ -9,7 +9,7 @@
     <input type="submit" value="Sign out."/>
 </form>
 
-<form th:action="@{/admin}" th:object="${user}" th:method="POST">
+<form th:action="@{/}" th:object="${user}" th:method="POST">
 
     <label for="username">Username</label>
     <br/>
@@ -23,7 +23,7 @@
     <br/>
     <label for="Age">Age</label>
     <br/>
-    <input type="text"  th:field="*{password}" id = "Age"/>
+    <input type="text"  th:field="*{age}" id = "Age"/>
 
     <br/>
     <label>Roles:
