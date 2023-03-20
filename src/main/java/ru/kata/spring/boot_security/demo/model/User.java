@@ -31,7 +31,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -40,6 +40,10 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.age = age;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
     @Override
@@ -102,15 +106,8 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public void addRole(Role role) {
-        if(roles == null) {
-            roles = new HashSet<>();
-        }
-        roles.add(role);
-    }
-
     public String getRolesString() {
-        String rolesset = roles.stream().map(n ->n.getRole()).collect(Collectors.joining("," +
+        String rolesset = roles.stream().map(Role::getRole).collect(Collectors.joining("," +
                 ""));
         return rolesset.substring(5).toLowerCase();
     }

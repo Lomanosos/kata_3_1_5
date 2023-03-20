@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class TableInserter implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private Set<Role> temp;
 
 
     @Autowired
@@ -38,12 +40,13 @@ public class TableInserter implements CommandLineRunner {
         Role user = new Role("ROLE_USER");
         Role admin = new Role("ROLE_ADMIN");
         roleRepository.save(user);
-        roleRepository.save(admin);
+        roleRepository.save(admin);//тут работает
 
-        user1.addRole(roleRepository.findRoleByRole(String.valueOf(user)));
-        user2.addRole(roleRepository.findRoleByRole(String.valueOf(admin)));
-        user3.addRole(roleRepository.findRoleByRole(String.valueOf(admin)));
-        user3.addRole(roleRepository.findRoleByRole(String.valueOf(user)));
+        user1.addRole(user);
+        user2.addRole(admin);
+        user3.addRole(user);
+        user3.addRole(admin);
+
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
