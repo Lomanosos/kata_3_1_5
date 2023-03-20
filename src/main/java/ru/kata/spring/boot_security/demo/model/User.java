@@ -107,9 +107,8 @@ public class User implements UserDetails {
     }
 
     public String getRolesString() {
-        String rolesset = roles.stream().map(Role::getRole).collect(Collectors.joining("," +
-                ""));
-        return rolesset.substring(5).toLowerCase();
+        String roleSet = roles.stream().map(Role::getRole).collect(Collectors.joining(", "));
+        return roleSet.toLowerCase();
     }
 
     public Integer getAge() {
