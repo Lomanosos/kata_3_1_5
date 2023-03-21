@@ -16,18 +16,15 @@ import java.util.Set;
 @Component
 public class TableInserter implements CommandLineRunner {
 
-    private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private UserAndRoleService userAndRoleService;
 
 
     @Autowired
-    public TableInserter(PasswordEncoder passwordEncoder,
-                         UserRepository userRepository,
+    public TableInserter(UserRepository userRepository,
                          RoleRepository roleRepository,
                          UserAndRoleService userAndRoleService) {
-        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userAndRoleService = userAndRoleService;
@@ -36,11 +33,11 @@ public class TableInserter implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         User user1 = new User("krot",
-                passwordEncoder.encode("krot123"), 77);
+                "krot123", 77);
         User user2 = new User("tom",
-                passwordEncoder.encode("qwerty66"), 15);
+                "qwerty66", 15);
         User user3 = new User("logitec",
-                passwordEncoder.encode("thebestcompany"), 82);
+                "thebestcompany", 82);
         Role user = new Role("ROLE_USER");
         Role admin = new Role("ROLE_ADMIN");
 
