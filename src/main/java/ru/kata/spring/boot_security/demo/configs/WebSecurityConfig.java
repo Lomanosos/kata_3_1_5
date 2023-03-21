@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import ru.kata.spring.boot_security.demo.service.UserAndRoleService;
 
@@ -58,8 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        String heirarchy = "ROLE_ADMIN > ROLE_USER";
-        roleHierarchy.setHierarchy(heirarchy);
+        String hierarchy = "ROLE_ADMIN > ROLE_USER";
+        roleHierarchy.setHierarchy(hierarchy);
         return roleHierarchy;
     }
 
