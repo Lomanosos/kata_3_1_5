@@ -19,14 +19,18 @@ public class TableInserter implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private Set<Role> temp;
+    private UserAndRoleService userAndRoleService;
 
 
     @Autowired
-    public TableInserter(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository) {
+    public TableInserter(PasswordEncoder passwordEncoder,
+                         UserRepository userRepository,
+                         RoleRepository roleRepository,
+                         UserAndRoleService userAndRoleService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.userAndRoleService = userAndRoleService;
     }
 
     @Override
@@ -39,16 +43,18 @@ public class TableInserter implements CommandLineRunner {
                 passwordEncoder.encode("thebestcompany"), 82);
         Role user = new Role("ROLE_USER");
         Role admin = new Role("ROLE_ADMIN");
-        roleRepository.save(user);
-        roleRepository.save(admin);//тут работает
+
+        userAndRoleService.saveRole(user);
+        userAndRoleService.saveRole(admin);
 
         user1.addRole(user);
         user2.addRole(admin);
         user3.addRole(user);
         user3.addRole(admin);
 
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
+        userAndRoleService.saveUser(user1);
+        userAndRoleService.saveUser(user2);
+        userAndRoleService.saveUser(user3);
+
     }
 }
