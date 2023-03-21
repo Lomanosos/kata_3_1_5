@@ -2,36 +2,25 @@ package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
-import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+
+
 
 @Component
 public class TableInserter implements CommandLineRunner {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private UserAndRoleService userAndRoleService;
-
+    private final UserAndRoleService userAndRoleService;
 
     @Autowired
-    public TableInserter(UserRepository userRepository,
-                         RoleRepository roleRepository,
-                         UserAndRoleService userAndRoleService) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+    public TableInserter(UserAndRoleService userAndRoleService) {
         this.userAndRoleService = userAndRoleService;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         User user1 = new User("krot",
                 "krot123", 77);
         User user2 = new User("tom",
