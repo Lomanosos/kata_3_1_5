@@ -12,11 +12,13 @@ import ru.kata.spring.boot_security.demo.model.User;
 @Component
 public class TableInserter implements CommandLineRunner {
 
-    private final UserAndRoleService userAndRoleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public TableInserter(UserAndRoleService userAndRoleService) {
-        this.userAndRoleService = userAndRoleService;
+    public TableInserter(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
     }
 
     @Override
@@ -30,17 +32,17 @@ public class TableInserter implements CommandLineRunner {
         Role user = new Role("ROLE_USER");
         Role admin = new Role("ROLE_ADMIN");
 
-        userAndRoleService.saveRole(user);
-        userAndRoleService.saveRole(admin);
+        roleService.saveRole(user);
+        roleService.saveRole(admin);
 
         user1.addRole(user);
         user2.addRole(admin);
         user3.addRole(user);
         user3.addRole(admin);
 
-        userAndRoleService.saveUser(user1);
-        userAndRoleService.saveUser(user2);
-        userAndRoleService.saveUser(user3);
+        userService.saveUser(user1);
+        userService.saveUser(user2);
+        userService.saveUser(user3);
 
     }
 }

@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.Collection;
@@ -21,60 +19,61 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
-public class UserAndRoleService implements UserDetailsService {
-
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserAndRoleService(UserRepository userRepository,
-                              RoleRepository roleRepository,
-                              PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<Role> getAllRoles() {
-        return roleRepository.findAll();
-    }
+    @Override
     @Transactional
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+
+    @Override
     @Transactional
-    public void saveRole(Role role) {
-        roleRepository.save(role);
-    }
-    @Transactional
-    public void delete(Long id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
     @Transactional
-    public void edit(User user) {
+    public void editUser(User user) {
         userRepository.save(user);
     }
+
+    @Override
+    @Transactional(readOnly = true)
     public User getById(Long id) {
         return userRepository.getOne(id);
     }
-    public List<User> getListUsers(){
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> getListUsers() {
         return userRepository.findAll();
     }
 
-
-
+    @Override
+    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username);
         if(user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
-
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
