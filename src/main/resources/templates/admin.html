@@ -10,15 +10,17 @@
 <div class="container-fluid">
     <!---шапка-->
     <header>
-        <div class="px-3 py-2 bg-dark text-white">
-            <h4><span th:text="${admin.getUsername()}">VALUE</span>
-            with roles: <span th:text="${admin.getRolesString()}"></span></h4>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
-            </ul>
-        </div>
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand">  <h4><span th:text="${admin.getUsername()}">VALUE</span>
+                    with roles: <span th:text="${admin.getRolesString()}"></span></h4> </a>
+                <ul class="navbar-nav px-3">
+                    <li class="nav-item text-nowrap">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
     <!---vertical pils--->
     <div class="d-flex align-items-start">
