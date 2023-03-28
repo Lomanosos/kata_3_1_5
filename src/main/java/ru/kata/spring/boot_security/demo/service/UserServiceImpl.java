@@ -63,13 +63,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByEmail(String username) {
+        return userRepository.findByEmail(username);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+        User user = findByEmail(username);
         if(user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }

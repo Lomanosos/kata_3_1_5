@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()

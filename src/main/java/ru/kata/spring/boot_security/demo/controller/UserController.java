@@ -19,7 +19,7 @@ public class UserController {
     }
     @GetMapping("/user")
     public String findAll(Model model, Principal principal){
-        model.addAttribute("user1", userService.findByUsername(principal.getName()));
+        model.addAttribute("user1", userService.findByEmail(principal.getName()));
         return "user";
     }
 
