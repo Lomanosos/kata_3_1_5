@@ -17,11 +17,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    @GetMapping("/")
-    public String home(){
-        return "/main";
-    }
     @GetMapping("/user")
     public String findAll(Model model, Principal principal){
         model.addAttribute("user", userService.findByUsername(principal.getName()));

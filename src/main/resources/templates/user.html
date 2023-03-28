@@ -5,12 +5,7 @@
     <title>User page</title>
 </head>
 <body>
-<h2>
-    <p th:text="${'Hello, ' + user.getUsername() + '.'}"></p>
-    <p th:text="${'Your age: ' + user.getAge() + '.'}"></p>
-    <p th:text="${'Your password: ' + user.getPassword() + '.'}"></p>
-    <p th:text="${'Your roles:' + user.getRolesString()}"></p>
-</h2>
+
 
 <form th:method="POST" th:action="@{/logout}">
     <input type="submit" value="Sign out."/>

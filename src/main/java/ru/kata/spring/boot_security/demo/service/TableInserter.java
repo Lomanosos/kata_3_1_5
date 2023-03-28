@@ -24,11 +24,11 @@ public class TableInserter implements CommandLineRunner {
     @Override
     public void run(String... args) {
         User user1 = new User("krot",
-                "krot123", 77);
+                "krotov", (byte) 77, "thebestkrot@gmail.com", "krot123");
         User user2 = new User("tom",
-                "qwerty66", 15);
+                "cruse", (byte)15, "basic@gmail.com", "qwerty66");
         User user3 = new User("logitec",
-                "thebestcompany", 82);
+                "thebestcompany", (byte)82, "logitec@gmail.com", "logitec");
         Role user = new Role("ROLE_USER");
         Role admin = new Role("ROLE_ADMIN");
 
