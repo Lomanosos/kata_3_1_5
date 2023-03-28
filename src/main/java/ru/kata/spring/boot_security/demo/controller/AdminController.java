@@ -36,12 +36,12 @@ public class AdminController {
         userService.saveUser(user);
         return "redirect:/admin";
     }
-    @GetMapping("/editUser/{id}")
-    public String updateUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getById(id));
-        model.addAttribute("allRoles", roleService.getAllRoles());
-        return "editUser";
-    }
+    //@GetMapping("/editUser/{id}")
+    //public String updateUser(@PathVariable("id") Long id, Model model) {
+        //model.addAttribute("user", userService.getById(id));
+        //model.addAttribute("allRoles", roleService.getAllRoles());
+        //return "editUser";
+    //}
     @PostMapping("updateUser")
     public String update(@ModelAttribute("update") User user) {
         userService.editUser(user);
