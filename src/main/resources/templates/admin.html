@@ -6,8 +6,9 @@
     <title>Title</title>
 </head>
 <body>
-<!---шапка-->
+
 <div class="container-fluid">
+    <!---шапка-->
     <header>
         <div class="px-3 py-2 bg-dark text-white">
             <h4><span th:text="${admin.getUsername()}">VALUE</span>
@@ -116,6 +117,35 @@
                         <div class="card-body">
                             <div class="card-header">
                                 <h5>Add new user</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="container mt-2 col-sm-4 text-center">
+                                    <form method="post" action="@{/}" th:object="${newUser}">
+                                        <div class="form-group">
+                                            <!---firstname--->
+                                            <label for="firstName" class="font-weight-bold">First name</label>
+                                            <input type="text" class="form-control" th:field="*{firstName}" id="firstName"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName" class="font-weight-bold">Last name</label>
+                                            <input type="text" class="form-control" th:field="*{lastName}" id="lastName"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="age" class="font-weight-bold">Age</label>
+                                            <input type="text" class="form-control" th:field="*{age}" id="age"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="font-weight-bold">Email</label>
+                                            <input type="text" class="form-control" th:field="*{email}" id="email"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password" class="font-weight-bold">Password</label>
+                                            <input type="password" class="form-control" th:field="*{password}" id="password"/>
+                                        </div>
+
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
