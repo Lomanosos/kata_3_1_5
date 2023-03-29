@@ -22,7 +22,7 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-    @GetMapping()
+    @GetMapping
     public String mainPage(Model model, Principal principal) {
         model.addAttribute("admin", userService.findByEmail(principal.getName()));
         model.addAttribute("users", userService.getListUsers());
@@ -36,14 +36,13 @@ public class AdminController {
         userService.saveUser(user);
         return "redirect:/admin";
     }
-    //@GetMapping("/editUser/{id}")
-    //public String updateUser(@PathVariable("id") Long id, Model model) {
-        //model.addAttribute("user", userService.getById(id));
-        //model.addAttribute("allRoles", roleService.getAllRoles());
-        //return "editUser";
-    //}
-    @PostMapping("updateUser")
-    public String update(@ModelAttribute("update") User user) {
+    @PostMapping("/{id}")
+    public String update(@PathVariable("id") Long id, @ModelAttribute("user") User theuser) {
+        User user = userService.getById(id);
+        user.setFirstName(theuser.getFirstName());
+        user.setLastName(theuser.getLastName());
+        user.setAge(theuser.getAge());
+        user.setRoles(theuser.getRoles());
         userService.editUser(user);
         return "redirect:/admin";
     }

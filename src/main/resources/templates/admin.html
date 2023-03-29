@@ -24,7 +24,7 @@
     </header>
     <!---vertical pils--->
     <div class="d-flex align-items-start">
-        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Admin</a>
             <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">User</a>
         </div>
@@ -32,12 +32,17 @@
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <!--admin panel with table-->
                 <h1>Admin panel</h1>
-                <nav class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Users table</a>
-                    <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">New User</a>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Users table</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">New user</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <!--users table--->
                         <div class="card">
                             <div class="card-header">
@@ -70,24 +75,44 @@
                                                 <td th:text="${user.email}"></td>
                                                 <td th:text="${user.getRolesString()}"></td>
                                                 <!----edit btn--->
-                                                <td><button type="button" class="btn btn-info"
+                                                <td>
+                                                    <button type="button" class="btn btn-info"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#modalEdit"
-                                                            th:data-bs-target="${'#modalEdit'+user.id}">Edit</button></td>
+                                                            th:data-bs-target="${'#modalEdit'+user.id}">Edit
+                                                    </button>
+                                                </td>
+
                                                 <!----delete btn--->
-                                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modalDelete"
+                                                            th:data-bs-target="${'#modalDelete' + user.id}">Delete
+                                                </button>
+                                                </td>
+                                                <!---delete modal-->
+                                                <div class="modal fade" tabindex="-1" th:id="${'modalDelete' + user.id}">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <form id="deleteForm" th:action="" th:method="DELETE" action="#">
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <!---edit modal-->
                                                 <div class="modal fade" tabindex="-1" th:id="${'modalEdit'+user.id}">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <form id="editForm" th:method="POST" action="#"
-                                                                  th:action="@{/updateUser}" th:object="user">
+                                                                  th:action="@{/admin/{id}(id=${user.id})}" th:object="user">
                                                                 <div class="modal-header">
                                                                     <!----head--->
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                                                                    <h5 class="modal-title">Edit User</h5>
                                                                     <button type="button" class="btn-close" aria-label="Close"></button>
                                                                 </div>
-                                                                <div class="modal-body">
+                                                                <div class="modal-body text-center">
                                                                     <!----the insides--->
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -98,6 +123,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -114,39 +140,45 @@
 
 
                     </div>
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <!---New User--->
-                        <div class="card-body">
-                            <div class="card-header">
-                                <h5>Add new user</h5>
-                            </div>
+                        <div class="card">
                             <div class="card-body">
-                                <div class="container mt-2 col-sm-4 text-center">
-                                    <form method="post" action="@{/}" th:object="${newUser}">
-                                        <div class="form-group">
-                                            <!---firstname--->
-                                            <label for="firstName" class="font-weight-bold">First name</label>
-                                            <input type="text" class="form-control" th:field="*{firstName}" id="firstName"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="lastName" class="font-weight-bold">Last name</label>
-                                            <input type="text" class="form-control" th:field="*{lastName}" id="lastName"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="age" class="font-weight-bold">Age</label>
-                                            <input type="text" class="form-control" th:field="*{age}" id="age"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email" class="font-weight-bold">Email</label>
-                                            <input type="text" class="form-control" th:field="*{email}" id="email"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password" class="font-weight-bold">Password</label>
-                                            <input type="password" class="form-control" th:field="*{password}" id="password"/>
-                                        </div>
+                                <div class="card-header">
+                                    <h5>Add new user</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container mt-2 col-sm-4 text-center">
+                                        <form th:method="post" th:action="@{/admin}" th:object="${newUser}">
+                                            <div class="form-group">
+                                                <!---firstname--->
+                                                <label for="firstName" class="font-weight-bold">First name</label>
+                                                <input type="text" class="form-control" th:field="*{firstName}" id="firstName"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName" class="font-weight-bold">Last name</label>
+                                                <input type="text" class="form-control" th:field="*{lastName}" id="lastName"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="age" class="font-weight-bold">Age</label>
+                                                <input type="text" class="form-control" th:field="*{age}" id="age"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email" class="font-weight-bold">Email</label>
+                                                <input type="text" class="form-control" th:field="*{email}" id="email"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password" class="font-weight-bold">Password</label>
+                                                <input type="password" class="form-control" th:field="*{password}" id="password"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="role" class="font-weight-bold">Role</label>
+
+                                            </div>
 
 
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

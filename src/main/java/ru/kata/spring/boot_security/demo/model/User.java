@@ -18,7 +18,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
     private String firstName;
     private String lastName;
     private Byte age;
@@ -79,12 +78,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
+        return email;
     }
 
     public Long getId() {
