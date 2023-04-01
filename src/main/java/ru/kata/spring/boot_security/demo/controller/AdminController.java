@@ -13,7 +13,6 @@ import java.security.Principal;
 
 
 @Controller
-@RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
@@ -22,7 +21,7 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-    @GetMapping
+    @GetMapping("/admin")
     public String mainPage(Model model, Principal principal) {
         model.addAttribute("admin", userService.findByEmail(principal.getName()));
         model.addAttribute("users", userService.getListUsers());
