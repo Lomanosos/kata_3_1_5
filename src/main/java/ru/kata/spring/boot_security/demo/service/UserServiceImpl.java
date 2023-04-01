@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service
+@Configuration
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        ;
     }
 
     @Override
