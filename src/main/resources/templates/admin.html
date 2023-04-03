@@ -163,23 +163,26 @@
                                     <!--- delete --->
                                     <td>
                                         <!-- btn -->
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                th:data-bs-target="'#deleteModal' + ${user.id}">Delete
+                                        <button type="button" class="btn btn-danger"
+                                                data-bs-toggle="modal"
+                                                th:data-bs-target="${'#deleteModal' + user.id}">
+                                            Delete
                                         </button>
                                         <!-- delete modal -->
-                                        <div class="modal fade"  th:id="'deleteModal' + ${user.id}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal fade" th:id="${'deleteModal' + user.id}"
+                                             tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Delete user</h5>
-                                                        <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body text-center">
-                                                        <div class="container-fluid">
-                                                            <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}" th:object="${user}">
-                                                                <div class="container col-8 text-center">
+                                                    <div class="modal-content">
+                                                        <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}" th:object="${user}">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Delete user</h5>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body text-center">
+                                                                <div class="controls">
                                                                     <div class="form-group">
                                                                         <label for="id"><strong>ID</strong></label>
                                                                         <input th:value="${user.id}"
@@ -223,18 +226,19 @@
                                                                                id="rolesdelete" readonly>
                                                                     </div>
                                                                 </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close
-                                                        </button>
-                                                        <form th:method="DELETE">
-                                                            <button name="button" class="btn btn-danger" type="submit" >Delete</button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close
+                                                                </button>
+                                                                <form th:method="DELETE">
+                                                                    <button name="button" class="btn btn-danger" type="submit" >Delete</button>
+                                                                </form>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </td>
