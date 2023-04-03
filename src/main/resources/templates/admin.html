@@ -178,41 +178,38 @@
                                                     </div>
                                                     <div class="modal-body text-center">
                                                         <div class="container-fluid">
-                                                            <form th:method="DELETE"
-                                                                  th:id="'deleteModal' + ${user.id}"
-                                                                  th:object="${user}"
-                                                                  th:action="@{/admin/{id}/delete(id=${user.id})}">
+                                                            <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}" th:object="${user}">
                                                                 <div class="container col-8 text-center">
                                                                     <div class="form-group">
-                                                                        <label for="id">ID</label>
+                                                                        <label for="id"><strong>ID</strong></label>
                                                                         <input th:value="${user.id}"
                                                                                th:name="id"
                                                                                id="id"
                                                                                type="number" class="form-control" readonly>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="firstNamedelete">First name</label>
+                                                                        <label for="firstNamedelete"><strong>First name</strong></label>
                                                                         <input th:value="${user.firstName}"
                                                                                th:name="firstName"
                                                                                id="firstNamedelete"
                                                                                type="text" class="form-control" readonly>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="lastNamedelete">Last name</label>
+                                                                        <label for="lastNamedelete"><strong>Last name</strong></label>
                                                                         <input th:value="${user.lastName}"
                                                                                th:name="lastName"
                                                                                id="lastNamedelete"
                                                                                type="text" class="form-control" readonly>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="agedelete">Age</label>
+                                                                        <label for="agedelete"><strong>Age</strong></label>
                                                                         <input th:value="${user.age}"
                                                                                th:name="age"
                                                                                id="agedelete"
                                                                                type="number" class="form-control" readonly>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="emaildelete">Email</label>
+                                                                        <label for="emaildelete"><strong>Email</strong></label>
                                                                         <input th:value="${user.email}"
                                                                                th:name="email"
                                                                                id="emaildelete"
@@ -223,7 +220,7 @@
                                                                         <input type="text"
                                                                                th:name="role"
                                                                                th:value="*{getRolesString()}" class="form-control"
-                                                                               id="rolesdelete"/>
+                                                                               id="rolesdelete" readonly>
                                                                     </div>
                                                                 </div>
                                                             </form>
@@ -233,9 +230,9 @@
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close
                                                         </button>
-                                                        <button type="submit" class="btn btn-danger">
-                                                            Delete
-                                                        </button>
+                                                        <form th:method="DELETE">
+                                                            <button name="button" class="btn btn-danger" type="submit" >Delete</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
