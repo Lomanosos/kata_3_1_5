@@ -137,7 +137,7 @@ public class User implements UserDetails {
     }
 
     public String getRolesString() {
-        String roleSet = roles.stream().map(Role::getRole).collect(Collectors.joining(", "));
-        return roleSet.toLowerCase();
+        String roleSet = roles.stream().map(m->m.toString()).collect(Collectors.joining(" "));
+        return roleSet;
     }
 }

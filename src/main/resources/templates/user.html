@@ -7,19 +7,18 @@
 </head>
 <body>
 <div class="container-fluid">
-    <header>
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand">  <h4><span th:text="${admin.getUsername()}">VALUE</span>
-                    with roles: <span th:text="${admin.getRolesString()}"></span></h4> </a>
-                <ul class="navbar-nav px-3">
-                    <li class="nav-item text-nowrap">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <span class="navbar-brand">
+            <b> <span class="align-middle" th:text="${admin.username}"></span></b>
+            <span class="align-middle">with roles:</span>
+            <span class="align-middle" th:text="${admin.getRolesString()}"></span>
+            </span>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
     <!---vertical pils--->
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
