@@ -122,10 +122,11 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="emailEdit"><strong>Email</strong></label>
-                                                                    <input th:type="email"
+                                                                    <input th:type="text"
                                                                            class="form-control"
                                                                            th:name="email"
-                                                                           id="emailEdit" th:value="${user.email}">
+                                                                           id="emailEdit" th:value="${user.getEmail()}"
+                                                                           th:placeholder="${user.email}">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="passwordEdit"><strong>Password</strong></label>
