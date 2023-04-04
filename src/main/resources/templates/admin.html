@@ -130,10 +130,10 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="passwordEdit"><strong>Password</strong></label>
-                                                                    <input type="password"
+                                                                    <input th:type="password"
                                                                            class="form-control"
-                                                                           name="password"
-                                                                           id="passwordEdit">
+                                                                           th:name="password"
+                                                                           id="passwordEdit" th:value="${user.password}">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="rolesedit"><b>Role</b></label>
