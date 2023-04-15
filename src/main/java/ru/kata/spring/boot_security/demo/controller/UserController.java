@@ -2,16 +2,16 @@ package ru.kata.spring.boot_security.demo.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyAutoConfiguration;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 
-@Controller
-@RequestMapping("/user")
+@RestController
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -19,10 +19,9 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping()
-    public String findAll(Model model, Principal principal){
-        model.addAttribute("authuser", userService.findByEmail(principal.getName()));
-        return "user";
+    @GetMapping("/userinfo")
+    public ResponseEntity<User> showInfo(Principal principal) {
+        return ResponseEntity.ok(userService.findByEmail(principal.getName()));
     }
 
 }

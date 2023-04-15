@@ -10,12 +10,13 @@ import java.util.List;
 @Component
 public interface UserService extends UserDetailsService {
     void saveUser(User user);
+    User findById(Long id);
 
     void deleteUser(Long id);
 
-    void editUser(User user);
+    void editUser(User user, Long id);
 
-    User getById(Long id);
+
 
     List<User> getListUsers();
 

@@ -7,23 +7,21 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.errors.UserNotFound;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Configuration
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-
-
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -44,16 +42,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void editUser(User user) {
-        userRepository.save(user);
+    public void editUser(User user, Long id) {
+        Optional<User> updUser = userRepository.findById(id);
+        if (updUser.isPresent()) {
+            User us = updUser.get();
+            us.setRoles(user.getRoles());
+            us.setEmail(user.getEmail());
+            us.setAge(user.getAge());
+            us.setLastName(user.getLastName());
+            us.setFirstName(user.getFirstName());
+            us.setId(user.getId());
+            us.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            userRepository.save(us);
+        } else {
+            throw new UserNotFound("User not found");
+        }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getById(Long id) { //поменять
-        return userRepository.getOne(id);
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFound("User not found"));
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -64,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFound("User not found"));
     }
 
 

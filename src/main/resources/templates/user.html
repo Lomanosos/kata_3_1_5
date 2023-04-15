@@ -9,9 +9,7 @@
 <div class="container-fluid">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <span class="navbar-brand">
-            <b> <span class="align-middle" th:text="${authuser.username}"></span></b>
-            <span class="align-middle">with roles:</span>
-            <span class="align-middle" th:text="${authuser.getRolesString()}"></span>
+                <h5 class="navbar-brand col-md-3 col-lg-2 mr-0 px-3"><span id="authUser"></span></h5>
             </span>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
@@ -49,15 +47,7 @@
                                     <th scope="col">Role</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                    <tr th:each="user : ${authuser}">
-                                        <td th:text="${user.id}"></td>
-                                        <td th:text="${user.firstName}"></td>
-                                        <td th:text="${user.lastName}"></td>
-                                        <td th:text="${user.age}"></td>
-                                        <td th:text="${user.email}"></td>
-                                        <td th:text="${user.getRolesString()}"></td>
-                                    </tr>
+                                <tbody id="userTable">
                                 </tbody>
                             </table>
                         </div>
