@@ -19,7 +19,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("/userinfo")
+    @GetMapping("/")
     public ResponseEntity<User> showInfo(Principal principal) {
         return ResponseEntity.ok(userService.findByEmail(principal.getName()));
     }

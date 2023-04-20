@@ -1,4 +1,4 @@
-const url = '/api/admin/table'
+const url = '/api/admin/table/'
 const url2 = '/api/admin/userinfo'
 
 //head
@@ -11,16 +11,63 @@ const tableId = document.getElementById('table-body')
 //table for auth user
 const userInfo = document.getElementById('authUserInfo')
 
+//delete fields etc
+const id_del = document.getElementById('idDelete')
+const close_del = document.getElementById('deleteClose')
+const del_fn = document.getElementById('firstNameDelete')
+const del_ln = document.getElementById('lastNameDelete')
+const del_age = document.getElementById('ageDelete')
+const del_email = document.getElementById('emailDelete')
+const del_rs = document.getElementById('rolesDelete')
+const del_modal = new bootstrap.Modal(document.getElementById('deleteModal'))
 
 //edit form and fields
-//const ed_modal = new Modal(document.getElementById('modalEdit'))
 const ed_id = document.getElementById('idEdit')
 const ed_fn = document.getElementById('firstnameEdit')
 const ed_ln = document.getElementById('lastNameEdit')
 const ed_age = document.getElementById('ageEdit')
-const ed_email = document.getElementById('emailDelete')
+const ed_email = document.getElementById('emailEdit')
 const ed_pw = document.getElementById('passwordEdit')
 const ed_rs = document.getElementById('rolesEdit')
+
+//new form and fields
+const form_n = document.getElementById('newUserForm')
+const roles_n = document.querySelector('#roleSelect').selectedOptions
+form_n.addEventListener('submit', newUser)
+
+
+
+
+
+//new user start
+async function newUser(event) {
+    event.preventDefault()
+    let newRoles = [];
+    for (let i = 0; i < roles_n.length; i++) {
+        newRoles.push({id:roles_n[i].value})
+    }
+    let method = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            'firstName': document.getElementById('newFirstName').value,
+            'lastName': document.getElementById('newLastName').value,
+            'age': document.getElementById('newage').value,
+            'email': document.getElementById('newemail').value,
+            'password': document.getElementById('newpassword').value,
+            'roles': newRoles
+        })
+    }
+    await fetch(url, method).then(() => {
+        document.getElementById('nav-home-tab').click()
+        form_n.reset();
+        getTable()
+    })
+}
+//new user end
+
 
 //getting auth user info start
 async function getUserInfo() {
@@ -111,6 +158,45 @@ tableId.innerHTML = temp
 getTable();
 //getting table end
 
-
+//edit & delete modals start
 async function contentEditModal(id) {}
-async function contentDeleteModal(id) {}
+function contentDeleteModal(id) {
+    let del_url2 = url + id
+    fetch(del_url2, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    }).then(res => {
+        res.json().then(user => {
+            id_del.value = user.id
+            del_fn.value = user.firstName
+            del_ln.value = user.lastName
+            del_age.value = user.age
+            del_email.value = user.email
+            del_rs.value = user.roles
+        })
+    })
+}
+
+//edit & delete modals end
+
+
+//edit & delete functions start
+async function ed_User() {
+
+}
+async function deleteUser() {
+    let del_url = url + id_del.value;
+    let method = {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    fetch(del_url, method).then(() => {
+        close_del.click()
+        getTable()
+    })
+}
+//edit & delete functions end

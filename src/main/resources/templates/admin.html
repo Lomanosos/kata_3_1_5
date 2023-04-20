@@ -147,7 +147,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Delete user</h5>
-                                                <button type="button" class="btn-close"
+                                                <button type="button" id="deleteClose" class="btn-close"
                                                         data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -199,7 +199,7 @@
                                                 </button>
                                                 <button name="button"
                                                         class="btn btn-danger"
-                                                        type="submit" onclick="deleteUser()">Delete</button>
+                                                        type="submit" onclick="deleteUser(); getTable()">Delete</button>
                                             </div>
                                         </div>
                                     </div>
@@ -245,12 +245,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="roleSelect"><strong>Role</strong></label>
-                                        <select class="form-control form-control-sm" size="2" id="roleSelect" name="roles">
-                                            <option value="ROLE_ADMIN">ADMIN</option>
-                                            <option value="ROLE_USER">USER</option>
+                                        <select class="form-select" multiple size="2" id="roleSelect" name="roleSelect">
+                                            <option value="2">ADMIN</option>
+                                            <option selected value="1">USER</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-success" onclick="saveUser()">Add new user</button>
+                                    <button type="submit" class="btn btn-success" onclick="newUser()">Add new user</button>
                                 </form>
                             </div>
                         </div>
