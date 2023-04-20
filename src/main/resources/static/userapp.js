@@ -1,23 +1,50 @@
 const authUser = document.getElementById('authUser')
-const tableUser = document.getElementById('userTable')
-const urlInfo = 'http://localhost:8080/api/user/userinfo'
 
-function user() {
-    fetch(urlInfo)
-        .then(response => response.json())
-        .then(user => {
-            let temp = '';
-            temp += '<tr>' +
-                '<td>${user.id}</td>' +
-                '<td>${user.firstName}</td>' +
-                '<td>${user.lastName}</td>' +
-                '<td>${user.age}</td>' +
-                '<td>${user.email}</td>' +
-                '<td>${user.roles.map(role => " " + role.role.substring(5))}</td>' +
-                '</tr>';
-            tableUser.innerHTML = temp
-            authUser.innerHTML = '<h5> ${user.email} ' +
-                'with roles:' +
-                ' ${user.roles.map(role => " " + role.role.substring(5))} </h5>'
-        })
+
+const header3 = document.getElementById('userHeader3')
+const header4 = document.getElementById('userHeader4')
+const urlInfo = '/api/user/userinfo'
+
+
+async function getUserInfo1() {
+    let temp = await fetch(urlInfo)
+    if (temp.ok) {
+        let user = await temp.json()
+        let email = user.email
+        let roles = user.roles
+        getUser2(user)
+        getNavBar2({email, roles})
+    } else {
+        alert('Error, ${temp.status}')
+    }
+
 }
+function getNavBar2({email, roles}) {
+    let roles1 = ''
+    for (let el of roles) {
+        roles1 += ' '
+        roles1 += el.role.toString()
+            .replaceAll("ROLE_", "");
+    }
+    header3.innerHTML = email
+    header4.innerHTML = roles1
+}
+function getUser2(user) {
+    let rtemp2 =[]
+    for (let rel of user.roles) {
+        rtemp2.push(" " + rel.role.toString()
+            .replaceAll("ROLE_", ""))
+    }
+    let temp = ''
+    temp +=
+        `<tr>
+          <td>${user.id}</td>
+          <td>${user.firstName}</td>
+          <td>${user.lastName}</td>
+          <td>${user.age}</td>
+          <td>${user.email}</td>
+          <td>${rtemp2}</td> 
+         </tr>`;
+    authUser.innerHTML = temp
+}
+getUserInfo1()

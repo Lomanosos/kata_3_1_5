@@ -9,7 +9,10 @@
 <div class="container-fluid">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <span class="navbar-brand">
-                <h5 class="navbar-brand col-md-3 col-lg-2 mr-0 px-3"><span id="authUser"></span></h5>
+                <h5 class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">
+                    <span id="userHeader3"></span> with roles:
+                    <span id="userHeader4"></span>
+                </h5>
             </span>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
@@ -47,7 +50,7 @@
                                     <th scope="col">Role</th>
                                 </tr>
                                 </thead>
-                                <tbody id="userTable">
+                                <tbody id="authUser">
                                 </tbody>
                             </table>
                         </div>
@@ -58,7 +61,7 @@
         </div>
     </div>
     <!---vertical pils--->
-<script type="text/javascript" src="/userapp.js"></script>
+<script th:src="@{/app.js}" type="text/javascript" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\userapp.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
