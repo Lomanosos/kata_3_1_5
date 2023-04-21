@@ -183,23 +183,19 @@ async function contentEditModal(id) {
     }
 }
 async function contentDeleteModal(id) {
-    del_modal.show()
+
     let del_url2 = url + id
-    let temp = await fetch(del_url2, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
-    })
+    let temp = await fetch(del_url2)
     if(temp.ok) {
         await temp.json().then(user => {
-            id_del.value = user.id
-            del_fn.value = user.firstName
-            del_ln.value = user.lastName
-            del_age.value = user.age
-            del_email.value = user.email
-            del_rs.value = user.roles
+            id_del.value = '${user.id}'
+            del_fn.value = '${user.firstName}'
+            del_ln.value = '${user.lastName}'
+            del_age.value = '${user.age}'
+            del_email.value = '${user.email}'
+            del_rs.value = user.roles.map(r => r.role).join(", ")
         })
+        del_modal.show()
     } else {
         alert('delete error')
     }
