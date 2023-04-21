@@ -22,6 +22,10 @@ const del_rs = document.getElementById('rolesDelete')
 const del_modal = new bootstrap.Modal(document.getElementById('deleteModal'))
 
 //edit form and fields
+let option = ''
+const ed_closeBtn = document.getElementById('ed_close')
+const ed_form = document.querySelector('form')
+const ed_modal = new bootstrap.Modal(document.getElementById('modalEdit'))
 const ed_id = document.getElementById('idEdit')
 const ed_fn = document.getElementById('firstnameEdit')
 const ed_ln = document.getElementById('lastNameEdit')
@@ -159,7 +163,25 @@ getTable();
 //getting table end
 
 //edit & delete modals start
-async function contentEditModal(id) {}
+async function contentEditModal(id) {
+    ed_modal.show()
+    let ed_url2 = url + id
+    let temp = await fetch(ed_url2)
+    if (temp.ok) {
+        await temp.json().then(user => {
+            ed_id.value = user.id
+            ed_fn.value = user.firstName
+            ed_ln.value = user.lastName
+            ed_age.value = user.age
+            ed_email.value = user.email
+            ed_pw.value = user.password
+            ed_rs.value = user.roles
+        })
+
+    } else {
+        alert('error')
+    }
+}
 function contentDeleteModal(id) {
     let del_url2 = url + id
     fetch(del_url2, {
@@ -183,8 +205,34 @@ function contentDeleteModal(id) {
 
 
 //edit & delete functions start
-async function ed_User() {
-
+async function editUser() {
+    let ed_url = url + ed_id.value
+    let editRoles = []
+    for (let i = 0; i < ed_form.roles.options.length; i++) {
+        if (ed_form.roles.options[i].selected) {
+            let temp = {};
+            temp["id"] = ed_form.roles.options[i].value
+            editRoles.push(temp)
+        }
+    }
+    let method = {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            firstName: ed_form.firstName.value,
+            lastName: ed_form.lastName.value,
+            age: ed_form.age.value,
+            email: ed_form.email.value,
+            password: ed_form.password.value,
+            roles: editRoles
+        })
+    }
+    await fetch(ed_url, method).then(() => {
+        ed_closeBtn.click();
+        getTable()
+    })
 }
 async function deleteUser() {
     let del_url = url + id_del.value;

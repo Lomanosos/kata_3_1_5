@@ -76,11 +76,12 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Edit user</h5>
-                                                <button type="button" class="btn-close"
+                                                <button type="button" id="ed_close" class="btn-close"
                                                         data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body text-center">
+
                                                 <div class="controls">
                                                     <form id="editForm">
                                                         <div class="form-group">
@@ -134,7 +135,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                <button id="buttonCreate" type="submit" class="btn btn-primary" onclick="editUser()">Edit
+                                                <button id="buttonCreate" type="submit" class="btn btn-primary" onclick="editUser(); getTable()">Edit
                                                 </button>
                                             </div>
                                         </div>
@@ -302,7 +303,7 @@
 
 
 </div>
-<script th:src="@{/admin/app.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\admin\app.js"></script>
+<script th:src="@{/js/app.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>

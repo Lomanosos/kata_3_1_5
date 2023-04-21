@@ -1,13 +1,13 @@
-const authUser = document.getElementById('authUser')
+const authUser = document.getElementById('basicTable')
 
 
 const header3 = document.getElementById('userHeader3')
 const header4 = document.getElementById('userHeader4')
-const urlInfo = 'http://localhost:8080/api/user'
+const urlUser = 'http://localhost:8080/api/user/info'
 
 
 async function getUserInfo1() {
-    let temp = await fetch(urlInfo)
+    let temp = await fetch(urlUser)
     if (temp.ok) {
         let user1 = await temp.json()
         let email2 = user1.email
