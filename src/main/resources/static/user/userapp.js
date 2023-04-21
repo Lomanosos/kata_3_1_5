@@ -3,7 +3,7 @@ const authUser = document.getElementById('authUser')
 
 const header3 = document.getElementById('userHeader3')
 const header4 = document.getElementById('userHeader4')
-const urlInfo = '/api/user/'
+const urlInfo = 'http://localhost:8080/api/user'
 
 
 async function getUserInfo1() {
