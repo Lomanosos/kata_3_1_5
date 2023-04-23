@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private Byte age;
     private String email;
     private String password;
-    @ManyToMany
+    @ManyToMany()
     @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "user_role",

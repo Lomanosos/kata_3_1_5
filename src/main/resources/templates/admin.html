@@ -113,11 +113,11 @@
                                     <div class="form-group">
                                         <label for="roleSelect"><strong>Role</strong></label>
                                         <select class="form-select" multiple size="2" id="roleSelect" name="roleSelect">
-                                            <option value="2">ADMIN</option>
-                                            <option selected value="1">USER</option>
+                                            <option value="ADMIN">ADMIN</option>
+                                            <option selected value="USER">USER</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-success" onclick="newUser()">Add new user</button>
+                                    <button type="submit" class="btn btn-success">Add new user</button>
                                 </form>
                             </div>
                         </div>
@@ -166,10 +166,11 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
+            <form id="editForm">
             <div class="modal-body text-center">
 
                 <div class="controls">
-                    <form id="editForm">
+
                         <div class="form-group">
                             <label for="idEdit"><strong>ID</strong></label>
                             <input class="form-control" name="id" type="number"
@@ -211,19 +212,19 @@
                             <select name="roles" multiple class="form-control form-control-sm"
                                     id="rolesEdit"
                                     size="3" required>
-                                <option value="1">USER</option>
-                                <option value="2">ADMIN</option>
+                                <option id="userEditO" value="2">USER</option>
+                                <option id="adminEditO" value="1">ADMIN</option>
                             </select>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="footered" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                <button id="buttonCreate" type="submit" class="btn btn-primary" onclick="editUser(); getTable()">Edit
-                </button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" id="footered" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                    <button id="buttonCreate" type="submit" class="btn btn-primary">Edit
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -238,9 +239,9 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-
+            <form id="del_form">
                 <div class="modal-body text-center">
-                    <form id="del_form">
+
                     <div class="controls">
                         <div class="form-group">
                             <label for="idDelete"><strong>ID</strong></label>
@@ -278,7 +279,7 @@
                             <input readonly type="text" class="form-control"name="role" id="rolesDelete">
                         </div>
                     </div>
-                    </form>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="footerdel" class="btn btn-secondary"
@@ -286,16 +287,16 @@
                     </button>
                     <button id="deleteBtn"
                             class="btn btn-danger"
-                            type="submit" onclick="deleteUser(); getTable()">Delete</button>
+                            type="submit">Delete</button>
                 </div>
-
+            </form>
         </div>
     </div>
 </div>
 </div>
-<script th:src="@{/js/editUser.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\editUser.js"></script>
-<script th:src="@{/js/newUser.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\newUser.js"></script>
-<script th:src="@{/js/deleteUser.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\deleteUser.js"></script>
+<script th:src="@{/js/editUser.js}" type="text/javascript" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\editUser.js"></script>
+<script th:src="@{/js/newUser.js}" type="text/javascript" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\newUser.js"></script>
+<script th:src="@{/js/deleteUser.js}" type="text/javascript" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\deleteUser.js"></script>
 <script th:src="@{/js/app.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
@@ -307,5 +308,8 @@
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
 </body>
 </html>

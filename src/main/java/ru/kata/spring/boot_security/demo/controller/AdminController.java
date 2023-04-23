@@ -34,21 +34,21 @@ public class AdminController {
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.getListUsers(), HttpStatus.OK);
     }
-    @GetMapping("/table/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<User> showUser(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
-    @PostMapping("/table")
+    @PostMapping("/add")
     public ResponseEntity<HttpStatus> save(@RequestBody UserDTO user) {
         userService.saveUser(convertToUser(user));
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    @PutMapping("/table")
+    @PutMapping("/update")
     public ResponseEntity<HttpStatus> update(@RequestBody User user) {
         userService.editUser(user, user.getId());
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    @DeleteMapping("/table/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok(HttpStatus.OK);
