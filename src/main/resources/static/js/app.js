@@ -213,12 +213,14 @@ async function contentDeleteModal(id) {
     let temp = await fetch(del_url2)
     if(temp.ok) {
         await temp.json().then(user => {
+            let t = ''
+            t += user.roles.map(r => r.role.replaceAll("ROLE_", "")).join(", ")
             id_del.value = user.id
             del_fn.value = user.firstName
             del_ln.value = user.lastName
             del_age.value = user.age
             del_email.value = user.email
-            del_rs.value = user.role
+            del_rs.value = t
         })
     } else {
         alert('delete error')
