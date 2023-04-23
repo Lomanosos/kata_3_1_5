@@ -98,15 +98,11 @@ function getUser(user) {
 }
 //new user start
 const form_n = document.getElementById('newUserForm')
-const roles_n = document.querySelector('#roleSelect').selectedOptions;
+const roles_n = $("#roleSelect").val();
 
 form_n.addEventListener('submit', newUser)
 async function newUser(ev) {
     ev.preventDefault()
-    let newRoles = [];
-    for (let i = 0; i < roles_n.length; i++) {
-        newRoles.push("ROLE_" + roles_n[i].value)
-    }
     let method = {
         method: 'POST',
         headers: {
@@ -118,7 +114,7 @@ async function newUser(ev) {
             age: document.getElementById('newage').value,
             email: document.getElementById('newemail').value,
             password: document.getElementById('newpassword').value,
-            roles: newRoles
+            roles: roles_n
         })
     }
     fetch('http://localhost:8080/api/admin/add/', method).then(() => {

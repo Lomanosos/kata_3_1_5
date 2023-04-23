@@ -16,8 +16,6 @@ public interface UserService extends UserDetailsService {
 
     void editUser(User user, Long id);
 
-
-
     List<User> getListUsers();
 
     User findByEmail(String username);

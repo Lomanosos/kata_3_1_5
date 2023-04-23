@@ -2,7 +2,6 @@ package ru.kata.spring.boot_security.demo.model;
 
 
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,8 +26,6 @@ public class User implements UserDetails {
     private String email;
     private String password;
     @ManyToMany
-    //@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST  })
-    //@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
     @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "user_role",
