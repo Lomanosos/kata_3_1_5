@@ -1,4 +1,3 @@
-
 const url2 = 'http://localhost:8080/api/admin/userinfo'
 
 //head
@@ -98,11 +97,20 @@ function getUser(user) {
 }
 //new user start
 const form_n = document.getElementById('newUserForm')
-const roles_n = $("#roleSelect").val();
+const roles_n = document.querySelector('#roleNew').selectedOptions
 
 form_n.addEventListener('submit', newUser)
 async function newUser(ev) {
     ev.preventDefault()
+    //console.log(form_n.user.roles.value)
+    let newRoles = []
+    for(let i = 0; i < roles_n.length; i++){
+        newRoles.push({
+            id:roles_n[i].value
+        })
+    }
+
+
     let method = {
         method: 'POST',
         headers: {
@@ -114,7 +122,7 @@ async function newUser(ev) {
             age: document.getElementById('newage').value,
             email: document.getElementById('newemail').value,
             password: document.getElementById('newpassword').value,
-            roles: roles_n
+            roles: newRoles
         })
     }
     fetch('http://localhost:8080/api/admin/add/', method).then(() => {
@@ -161,6 +169,7 @@ ed_form.addEventListener('submit', e => {
     e.preventDefault()
     let ed_url = 'http://localhost:8080/api/admin/update/'
     let editRoles = []
+
     for (let i = 0; i < ed_form.roles.options.length; i++) {
         if (ed_form.roles.options[i].selected) {
             let tmp = {}

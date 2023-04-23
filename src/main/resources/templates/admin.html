@@ -111,10 +111,10 @@
                                                id="newpassword">
                                     </div>
                                     <div class="form-group">
-                                        <label for="roleSelect"><strong>Role</strong></label>
-                                        <select class="form-select" multiple size="2" id="roleSelect" name="roleSelect">
-                                            <option value="ROLE_ADMIN">ADMIN</option>
-                                            <option selected value="ROLE_USER">USER</option>
+                                        <label for="roleNew"><strong>Role</strong></label>
+                                        <select class="form-select" multiple size="2" id="roleNew" name="roleSelect">
+                                            <option value="2">ADMIN</option>
+                                            <option selected value="1">USER</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-success">Add new user</button>
@@ -294,9 +294,9 @@
     </div>
 </div>
 </div>
-<script th:src="@{/js/editUser.js}" type="text/javascript" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\editUser.js"></script>
-<script th:src="@{/js/newUser.js}" type="text/javascript" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\newUser.js"></script>
-<script th:src="@{/js/deleteUser.js}" type="text/javascript" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\deleteUser.js"></script>
+<script th:src="@{/js/editUser.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\editUser.js"></script>
+<script th:src="@{/js/newUser.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\newUser.js"></script>
+<script th:src="@{/js/deleteUser.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\deleteUser.js"></script>
 <script th:src="@{/js/app.js}" type="module" src="D:\java\javaprj\kata_3_1_4\src\main\resources\static\js\app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
